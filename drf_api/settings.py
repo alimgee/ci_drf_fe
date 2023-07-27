@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import re
+
 
 if os.path.exists('env.py'):
     import env
@@ -62,12 +62,13 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
-    '8000-alimgee-cidrffe-geiviurdhu8.ws-eu102.gitpod.io'
+    '8000-alimgee-cidrffe-geiviurdhu8.ws-eu102.gitpod.io',
+   
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -76,7 +77,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN'),
-        os.environ.get('CLIENT_ORIGIN_DEV')
+       
    ]
 # using below instead  to accomodate the use of gitpod
 #if 'CLIENT_ORIGIN_DEV' in os.environ:
@@ -159,9 +160,11 @@ DATABASES = {
     'default': ({
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    } if 'DEV' in os.environ else dj_database_url.parse(
-        os.environ.get('DATABASE_URL')
-    ))
+    }
+    # } if 'DEV' in os.environ else dj_database_url.parse(
+    #     os.environ.get('DATABASE_URL')
+     )
+
 }
 
 
